@@ -1,0 +1,6 @@
+@html.extend('layout', function (model) {
+  @html.block('main', function (model) {
+
+
+  })
+})

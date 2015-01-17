@@ -1,0 +1,38 @@
+<!-- begin intro section -->
+<section class="intro" id="intro">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="intro-section">
+                    <h1>Drop Your Enemies Glitter</h1>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#" class="btn btn-custom">
+                                <i class="fa fa-magic"></i>
+                                Getting started
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn btn-custom-border">
+                                <i class="fa fa-align-left"></i>
+                                faq
+                            </a>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="mouse">
+                        <i class="fa fa-angle-down Drop animated"></i>
+                    </a>
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <span class="mouse"></span>
+    
+</section>
+<!-- end intro section -->
