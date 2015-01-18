@@ -1,0 +1,42 @@
+<!-- begin reviews section -->
+<section class="reviews" id="reviews">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-head wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+                    <h1>Services</h1>
+                    <p>Inspired by <a href="http://shipyourenemiesglitter.com/">shipyourenemiesglitter.com</a>, but We do f***ing love glitter</p>
+                    <span class="underline"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="testemonials wow fadeInUp animated" data-wow-offset="10" data-wow-duration="1s">
+                
+                <!-- begin single testomial item -->
+                <div class="testemonial">
+                    <div class="col-md-5 client-data">
+                        <div class="client-image">
+                            <img src="images/cat-panick.jpg" alt="cat panicking">
+                        </div>
+                        <div class="client-name">
+                            <h4>Our satisfied customer</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-12">
+                        <div class="client-quote">
+                            <p>Glitter is the gem of the craft world, so here's the deal: there's someone in your life right now who you f***ing care. Whether it be your lovely neighbour or an ex.
+
+                            So pay us money, provide an address anywhere in the world & we'll send them so much glitter in an envelope that they'll be finding your love everywhere for weeks. We'll also include a note telling the person exactly why they're receiving this lovely gift. </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end single testomial item -->
+            </div>
+        </div>
+
+    </div>  
+</section>
+<!-- end reviews section -->
