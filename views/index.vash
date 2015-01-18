@@ -1,5 +1,49 @@
 @html.extend('layout', function (model) {
-  @html.block('main', function (model) {
+  @html.block('index', function (model) {
+
+	<!-- begin download section -->
+	<section class="download" id="buy">
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-head wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+						<h1>Buy now</h1>
+						<p>Ready to brighten up someones day? Drop some glitter now for only £4.99.</p>
+						<span class="underline"></span>
+					</div>
+				</div>
+			</div>
+
+			<form>
+
+				<div clas="row">
+					<div class="col-md-8 col-md-offset-2">
+					  <div class="form-group">
+					    <input type="email" class="form-control" id="email" name="email" placeholder="Please enter your email for any update">
+					  </div>
+					  <br />
+					  <div class="form-group">
+					    <textarea class="form-control" row="6" id="address" name="address" placeholder="The address of the one you care" style="height: 100px"></textarea>
+					    <input class="form-control" id="postcode" name="postcode" placeholder="post code" style="margin-top: 5px;">
+					  </div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="list-inline wow fadeInUp animated">
+							<li>
+								<a href="#" class="btn btn-custom"><i class="fa fa-magic"></i>Buy now</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</section>
+	<!-- end download section -->
 
 
   })

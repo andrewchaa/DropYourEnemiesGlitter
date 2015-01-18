@@ -1,0 +1,82 @@
+<!-- begin newsletter section -->
+<section class="newsletter" id="faq">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-head wow fadeInDown animated" data-wow-offset="10">
+                    <h1>faq</h1>
+                    <p>Yes, somehow we also have Frequently Asked Questions.</p>
+                    <span class="underline"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 form">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="text-align: left;">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Is this for real?
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+                        Yes, as real as <a href="http://shipyourenemiesglitter.com">shipyourenemiesglitter.com</a>.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                      <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          What happens after I give you my money?
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                      <div class="panel-body">
+                        We'll throw up a tonne of glitter into an envelope with your recipients address on the front of it. We'll also include a note telling them how wonderful they are which will be folded within.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                      <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Will the reciepient know who sent the glitter?
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                      <div class="panel-body">
+                        Not yet. We're thinking of "pay back" service, though.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingFour">
+                      <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                          How much does it cost?
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                      <div class="panel-body">
+                        It's only £4.99 GBP for anywhere in the world.
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end newsletter section -->

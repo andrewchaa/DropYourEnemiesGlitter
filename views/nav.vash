@@ -17,11 +17,8 @@
             <ul class="nav navbar-nav pull-right">
                 <!-- begin navigation items -->
                 <li class="current"><a href="#intro">Start</a></li>
-                <li><a href="#reviews">Services</a></li>
-                <li><a href="#screenshots">Screenshots</a></li>
-                <li><a href="#packages">Packages</a></li>
-                <li><a href="#extra">Extra</a></li>
-                <li><a href="#video">Video</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#faq">faq</a></li>
                 <li><a href="#download">Download</a></li>
                 <!-- end navigation items -->
             </ul>   
