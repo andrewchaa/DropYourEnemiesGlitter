@@ -15,7 +15,7 @@
 				</div>
 			</div>
 
-			<form>
+			<form method="post" action="/buy">
 
 				<div clas="row">
 					<div class="col-md-8 col-md-offset-2">
