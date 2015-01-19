@@ -9,9 +9,11 @@
   "author": "Andy",
   "license": "ISC",
   "dependencies": {
+    "azure-storage": "^0.4.2",
     "body-parser": "^1.10.1",
     "cookie-parser": "^1.3.3",
     "express": "^4.11.0",
+    "node-uuid": "^1.4.2",
     "vash": "^0.7.12-1"
   }
 }

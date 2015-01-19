@@ -15,17 +15,17 @@
 				</div>
 			</div>
 
-			<form method="post" action="/buy">
+			<form method="POST" action="/drop">
 
 				<div clas="row">
 					<div class="col-md-8 col-md-offset-2">
 					  <div class="form-group">
-					    <input type="email" class="form-control" id="email" name="email" placeholder="Please enter your email for any update">
+					    <input  class="form-control" id="email" name="email" placeholder="Please enter your email for any update">
 					  </div>
 					  <br />
 					  <div class="form-group">
 					    <textarea class="form-control" row="6" id="address" name="address" placeholder="The address of the one you care" style="height: 100px"></textarea>
-					    <input class="form-control" id="postcode" name="postcode" placeholder="post code" style="margin-top: 5px;">
+					    <input class="form-control" id="postcode" name="postCode" placeholder="post code" style="margin-top: 5px;">
 					  </div>
 					</div>
 				</div>
@@ -34,7 +34,7 @@
 					<div class="col-md-12">
 						<ul class="list-inline wow fadeInUp animated">
 							<li>
-								<a href="#" class="btn btn-custom"><i class="fa fa-magic"></i>Buy now</a>
+								<button type="submit" class="btn btn-custom" value="submit" onclick="$('form').submit()"><i class="fa fa-magic"></i>Drop now</button>
 							</li>
 						</ul>
 					</div>

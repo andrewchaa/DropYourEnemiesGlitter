@@ -8,7 +8,7 @@
             </button>
             <!-- begin logo in navigation -->
             <a class="navbar-brand" href="#intro">
-                <img src="images/footer_logo.png" alt="logo small">
+                <!-- <img src="images/footer_logo.png" alt="logo small"> -->
             </a>
             <!-- end logo in navigation -->
         </div>  
