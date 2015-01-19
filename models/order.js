@@ -51,4 +51,15 @@ Order.prototype.add = function (next) {
   });
 }
 
+Order.findById = function (id, next) {
+  tableService.retrieveEntity(tableName, partitionKey, id, function (error, result, response) {
+    if (error) {
+      next(error);
+    }
+
+    next(null, convertToOrderFrom(result));
+  })
+
+}
+
 module.exports = Order;

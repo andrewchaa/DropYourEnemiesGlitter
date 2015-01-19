@@ -14,17 +14,7 @@
 </div>
 <!-- end preloader -->
 
-@html.include("nav")
-@html.include("intro")
-@html.include("services")
-
-<div class="divider"></div>
-
-@html.include("faq")
-
-<div class="divider"></div>
-
-@html.block("index")
+@html.block("main")
 
 <!-- begin footer section -->
 <footer class="footer" id="footer">

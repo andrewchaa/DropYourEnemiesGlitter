@@ -2,9 +2,13 @@ module.exports = function (app) {
 
   var order = require('../models/order');
 
+  require("./drop")(app);
+
 	app.get('/', function (req, res) {
 		res.render('index', {});
 	});
+
+
 
   app.post('drop', function (req, res) {
     

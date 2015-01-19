@@ -1,49 +1,59 @@
 @html.extend('layout', function (model) {
-  @html.block('index', function (model) {
+  @html.block('main', function (model) {
 
-	<!-- begin download section -->
-	<section class="download" id="buy">
-		<div class="container">
-			
-			<div class="row">
-				<div class="col-md-12">
-					<div class="section-head wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
-						<h1>Buy now</h1>
-						<p>Ready to brighten up someones day? Drop some glitter now for only £4.99.</p>
-						<span class="underline"></span>
-					</div>
-				</div>
-			</div>
+		@html.include("nav")
+		@html.include("intro")
+		@html.include("services")
 
-			<form method="POST" action="/drop">
+		<div class="divider"></div>
 
-				<div clas="row">
-					<div class="col-md-8 col-md-offset-2">
-					  <div class="form-group">
-					    <input  class="form-control" id="email" name="email" placeholder="Please enter your email for any update">
-					  </div>
-					  <br />
-					  <div class="form-group">
-					    <textarea class="form-control" row="6" id="address" name="address" placeholder="The address of the one you care" style="height: 100px"></textarea>
-					    <input class="form-control" id="postcode" name="postCode" placeholder="post code" style="margin-top: 5px;">
-					  </div>
-					</div>
-				</div>
+		@html.include("faq")
 
+		<div class="divider"></div>
+
+		<!-- begin download section -->
+		<section class="download" id="buy">
+			<div class="container">
+				
 				<div class="row">
 					<div class="col-md-12">
-						<ul class="list-inline wow fadeInUp animated">
-							<li>
-								<button type="submit" class="btn btn-custom" value="submit" onclick="$('form').submit()"><i class="fa fa-magic"></i>Drop now</button>
-							</li>
-						</ul>
+						<div class="section-head wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+							<h1>Buy now</h1>
+							<p>Ready to brighten up someones day? Drop some glitter now for only £4.99.</p>
+							<span class="underline"></span>
+						</div>
 					</div>
 				</div>
-			</form>
 
-		</div>
-	</section>
-	<!-- end download section -->
+				<form method="POST" action="/drop">
+
+					<div clas="row">
+						<div class="col-md-8 col-md-offset-2">
+						  <div class="form-group">
+						    <input  class="form-control" id="email" name="email" placeholder="Please enter your email for any update">
+						  </div>
+						  <br />
+						  <div class="form-group">
+						    <textarea class="form-control" row="6" id="address" name="address" placeholder="The address of the one you care" style="height: 100px"></textarea>
+						    <input class="form-control" id="postcode" name="postCode" placeholder="post code" style="margin-top: 5px;">
+						  </div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="list-inline wow fadeInUp animated">
+								<li>
+									<button type="submit" class="btn btn-custom" value="submit" onclick="$('form').submit()"><i class="fa fa-magic"></i>Drop now</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</section>
+		<!-- end download section -->
 
 
   })

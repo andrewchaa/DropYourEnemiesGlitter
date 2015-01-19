@@ -1,0 +1,64 @@
+@html.extend("layout", function (model) {
+  @html.block("main", function (model) {
+
+    <section class="reviews" id="drop">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-head wow fadeIn animated animated" data-wow-offset="10" data-wow-duration="1.5s" style="visibility: visible; -webkit-animation: fadeIn 1.5s;">
+              <h1>Reviews</h1>
+              <p>Read what our customers are saying</p>
+              <span class="underline"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="testemonials wow fadeInUp animated owl-carousel owl-theme animated" data-wow-offset="10" data-wow-duration="1s" style="opacity: 1; display: block; visibility: visible; -webkit-animation: fadeInUp 1s;">
+            
+            <!-- begin single testomial item -->
+            <div class="owl-wrapper-outer autoHeight" style="height: 358px;"><div class="owl-wrapper" style="width: 3000px; left: -750px; display: block; -webkit-transition: all 0ms ease; transition: all 0ms ease;"><div class="owl-item" style="width: 750px;"><div class="testemonial">
+              <div class="col-md-5 client-data">
+                <div class="client-image">
+                  <img src="images/person.png" alt="client">
+                </div>
+                <div class="client-name">
+                  <h4>Client name</h4>
+                  <p>Art Director at Appcreator</p>
+                </div>
+              </div>
+              <div class="col-md-7 col-sm-12">
+                <div class="client-quote">
+                  <p>"Software innovation, like almost every other kind of innovation, requires the ability to collaborate and share ideas with other people, and to sit down and talk with customers and get their feedback and understand their needs."</p>
+                </div>
+              </div>
+            </div></div><div class="owl-item" style="width: 750px;"><div class="testemonial">
+              <div class="col-md-5 client-data">
+                <div class="client-image">
+                  <img src="images/person.png" alt="client">
+                </div>
+                <div class="client-name">
+                  <h4>Client name</h4>
+                  <p>Art Director at Appcreator</p>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="client-quote">
+                  <p>"Software innovation, like almost every other kind of innovation, requires the ability to collaborate and share ideas with other people, and to sit down and talk with customers and get their feedback and understand their needs."</p>
+                </div>
+              </div>
+            </div></div></div></div>
+            <!-- end single testomial item -->
+            <!-- begin single testomial item -->
+            
+            <!-- end single testomial item -->
+          <div class="owl-controls clickable"><div class="owl-pagination"><div class="owl-page"><span class=""></span></div><div class="owl-page active"><span class=""></span></div></div></div></div>
+        </div>
+
+      </div>  
+    </section>
+
+
+  })
+})
