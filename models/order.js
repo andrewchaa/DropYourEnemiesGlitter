@@ -40,7 +40,7 @@ Order.prototype.add = function (next) {
     id: entityGen.String(this.id),
     email: entityGen.String(this.email),
     address: entityGen.String(this.address),
-    postCode: entityGen.String()
+    postCode: entityGen.String(this.postCode)
   }
 
   tableService.insertEntity(tableName, orderEntity, function (err) {

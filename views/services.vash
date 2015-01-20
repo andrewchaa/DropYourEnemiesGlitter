@@ -19,10 +19,7 @@
                 <div class="testemonial">
                     <div class="col-md-5 client-data">
                         <div class="client-image">
-                            <img src="images/cat-panick.jpg" alt="cat panicking">
-                        </div>
-                        <div class="client-name">
-                            <h4>Our satisfied customer</h4>
+                            <img src="images/flying-glitter.jpg" alt="flying glitter">
                         </div>
                     </div>
                     <div class="col-md-7 col-sm-12">
