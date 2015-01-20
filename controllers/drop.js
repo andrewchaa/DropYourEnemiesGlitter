@@ -18,8 +18,10 @@ module.exports = function (app) {
     
     var order = new Order();
     order.email = req.body.email;
+    order.name = req.body.name;
     order.address = req.body.address;
     order.postCode = req.body.postCode;
+    order.note = req.body.note;
 
     order.add(function (err) {
       if (err)

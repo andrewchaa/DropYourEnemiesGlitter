@@ -50,8 +50,8 @@ $(document).ready(function() {
 	return false;
 	});
 
-	$('.btn-custom').click(function () {
-		$.scrollTo('.download', 1000);
+	$('#wannafun').click(function () {
+		$.scrollTo('#services', 1000);
 	return false;
 	});
 

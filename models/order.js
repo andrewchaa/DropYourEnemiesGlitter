@@ -1,8 +1,10 @@
-function Order (id, email, address, postCode) {
+function Order (id, email, name, address, postCode, note) {
   this.id = id || '';
   this.email = email || '';
+  this.name = name || '';
   this.address = address || '';
   this.postCode = postCode || '';
+  this.note = note || '';
 }
 
 var azure = require('azure-storage');
@@ -26,8 +28,10 @@ function convertToOrderFrom(row) {
   var order = {};
   order.id = row.RowKey._;
   order.email = row.email._;
+  order.name = row.name._;
   order.address = row.address._;
   order.postCode = row.postCode._;
+  order.note = row.note._;
 
   return order;
 }
@@ -39,8 +43,10 @@ Order.prototype.add = function (next) {
     RowKey: entityGen.String(this.id),
     id: entityGen.String(this.id),
     email: entityGen.String(this.email),
+    name: entityGen.String(this.name),
     address: entityGen.String(this.address),
-    postCode: entityGen.String(this.postCode)
+    postCode: entityGen.String(this.postCode),
+    note: entityGen.String(this.note)
   }
 
   tableService.insertEntity(tableName, orderEntity, function (err) {

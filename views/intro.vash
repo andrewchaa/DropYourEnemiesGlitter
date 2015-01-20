@@ -12,15 +12,9 @@
                     <br />
                     <ul class="list-inline">
                         <li>
-                            <a href="#" class="btn btn-custom">
+                            <a href="#" class="btn btn-custom" id="wannafun">
                                 <i class="fa fa-magic"></i>
-                                Buy now
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn btn-custom-border">
-                                <i class="fa fa-align-left"></i>
-                                faq
+                                Wanna fun?
                             </a>
                         </li>
                     </ul>
