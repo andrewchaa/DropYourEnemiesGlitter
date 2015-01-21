@@ -2,7 +2,7 @@ module.exports = function (app) {
 
   var order = require('../models/order');
 
-  require("./drop")(app);
+  require("./dropController")(app);
 
 	app.get('/', function (req, res) {
 		res.render('index', {});

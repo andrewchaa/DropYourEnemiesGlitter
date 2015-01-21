@@ -1,23 +1,23 @@
-function Order (id, email, name, address, postCode, note) {
-  this.id = id || '';
-  this.email = email || '';
-  this.name = name || '';
-  this.address = address || '';
-  this.postCode = postCode || '';
-  this.note = note || '';
-}
-
 var azure = require('azure-storage');
 var uuid = require('node-uuid');
-
 var tableName = 'orders';
-var partitionKey = 'myOrders';
+var partitionKey = 'orders';
 var storageAccount = process.env.AZURE_STORAGE_ACCOUNT;
 var storageAccessKey = process.env.AZURE_STORAGE_ACCESS_KEY;
 
-var entityGen = azure.TableUtilities.entityGenerator;
+function Order () {
+  this.PartitionKey = partitionKey;
+  this.RowKey = uuid();
+  this.email = '';
+  this.name = '';
+  this.address = '';
+  this.postCode = '';
+  this.note = '';
+  this.paymentId = '';
+  this.paid = false;
+}
+
 var tableService = azure.createTableService(storageAccount, storageAccessKey);
-var TableQuery = azure.TableQuery;
 
 tableService.createTableIfNotExists(tableName, function (error) {
   if (error)
@@ -37,19 +37,19 @@ function convertToOrderFrom(row) {
 }
 
 Order.prototype.add = function (next) {
-  this.id = uuid();
-  var orderEntity = {
-    PartitionKey: entityGen.String(partitionKey),
-    RowKey: entityGen.String(this.id),
-    id: entityGen.String(this.id),
-    email: entityGen.String(this.email),
-    name: entityGen.String(this.name),
-    address: entityGen.String(this.address),
-    postCode: entityGen.String(this.postCode),
-    note: entityGen.String(this.note)
+  var entity = {
+    PartitionKey: {'_': this.PartitionKey},
+    RowKey: {'_': this.RowKey},
+    email: {'_': this.email},
+    name: {'_': this.name},
+    address: {'_': this.address},
+    postCode: {'_': this.postCode},
+    note: {'_': this.note},
+    paymentId: {'_': this.paymentId},
+    paid: {'_': false}
   }
 
-  tableService.insertEntity(tableName, orderEntity, function (err) {
+  tableService.insertEntity(tableName, entity, function (err) {
     if (err)
       next(err);
 
@@ -57,7 +57,31 @@ Order.prototype.add = function (next) {
   });
 }
 
-Order.findById = function (id, next) {
+Order.prototype.paid = function () {
+
+  var entity = {
+    PartitionKey: {'_': this.PartitionKey},
+    RowKey: {'_': this.RowKey},
+    email: {'_': this.email},
+    name: {'_': this.name},
+    address: {'_': this.address},
+    postCode: {'_': this.postCode},
+    note: {'_': this.note},
+    paymentId: {'_': this.paymentId},
+    paid: {'_': true}
+  }
+
+  tableService.updateEntity(tableName, entity, function (error, result, response) {
+    if (error) {
+      next(error);
+    }
+
+    next(null);
+  });
+
+}
+
+Order.findByRowKey = function (id, next) {
   tableService.retrieveEntity(tableName, partitionKey, id, function (error, result, response) {
     if (error) {
       next(error);
@@ -65,6 +89,16 @@ Order.findById = function (id, next) {
 
     next(null, convertToOrderFrom(result));
   })
+}
+
+Order.findByPaymentId = function (paymentId, next) {
+  var query = new azure.TableQuery().top(1).where('paymentId eq ' + paymentId, partitionKey);
+  tableService.queryEntities(tableName, query, null, function (err, result, response) {
+    if (err)
+      throw err;
+
+    return result[0];
+  });
 
 }
 
