@@ -31,17 +31,20 @@
 						<div class="col-md-8 col-md-offset-2">
 						  <div class="form-group">
 						    <input class="form-control" id="email" name="email" placeholder="Your email for any update">
+						    <div id="valEmail" class="alert alert-danger">Please provide your email</div>
 						  </div>
 						  <br />
 						  <div class="form-group">
 						    <input class="form-control" id="name" name="name" placeholder="Your friend's name">
+						    <div id="valName" class="alert alert-danger">Please provide your friend's name</div>
 						  </div>
 						  <div class="form-group">
 						    <textarea class="form-control" row="6" id="address" name="address" placeholder="Your friend's address" style="height: 100px"></textarea>
+						    <div id="valAddress" class="alert alert-danger">Please provide your friend's address</div>
 						    <input class="form-control" id="postcode" name="postCode" placeholder="post code" style="margin-top: 5px;">
 						  </div>
 						  <div class="form-group">
-						    <textarea class="form-control" row="6" id="note" name="note" placeholder="Drop a short note, a personal touch" style="height: 100px"></textarea>
+						    <textarea class="form-control" row="6" id="note" name="note" placeholder="Drop a short note for a personal touch" style="height: 100px"></textarea>
 						  </div>
 						</div>
 					</div>
@@ -50,7 +53,7 @@
 						<div class="col-md-12">
 							<ul class="list-inline wow fadeInUp animated">
 								<li>
-									<button type="submit" class="btn btn-custom" value="submit" onclick="$('form').submit()"><i class="fa fa-magic"></i>Drop now</button>
+									<button id="btnDrop" type="submit" class="btn btn-custom" value="submit"><i class="fa fa-magic"></i>Drop now</button>
 								</li>
 							</ul>
 						</div>
@@ -60,7 +63,6 @@
 			</div>
 		</section>
 		<!-- end download section -->
-
 
   })
 })
