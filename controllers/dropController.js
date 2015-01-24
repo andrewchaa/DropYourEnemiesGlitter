@@ -27,7 +27,7 @@ module.exports = function (app) {
 
   app.post('/drop', function (req, res) {
     
-    paypal.configure(paypalConfig);
+    // paypal.configure(paypalConfig);
 
     var create_payment_json = {
       "intent": "sale",
