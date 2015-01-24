@@ -64,7 +64,7 @@ Order.prototype.add = function (next) {
   });
 }
 
-Order.prototype.update = function () {
+Order.prototype.update = function (next) {
 
   var entity = {
     PartitionKey: {'_': this.PartitionKey},

@@ -30,16 +30,6 @@ module.exports = function (app) {
     
     paypal.configure(paypalConfig);
 
-    paypal.generate_token(function (err, token) {
-      if (err) {
-        log.info('err: %s', err);
-        throw err;
-      }
-
-      res.cookie('access_token', token);
-      log.info('token: %s', token);
-    });
-
     var create_payment_json = {
       "intent": "sale",
       "payer": {
@@ -67,7 +57,7 @@ module.exports = function (app) {
       }]
     };
 
-    paypal.payment.create(create_payment_json, function (err, response) {
+    paypal.payment.create(create_payment_json, paypalConfig, function (err, response) {
       if (err) {
         throw err;
       } else {
@@ -115,8 +105,10 @@ module.exports = function (app) {
 
         log.info('order', order);
         order.paid = true;
-        order.update();
-        res.redirect('/drop/' + order.RowKey)
+        order.update(function () {
+          res.redirect('/drop/' + order.RowKey);  
+        });
+        
       });
     // });
 
