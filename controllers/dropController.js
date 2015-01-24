@@ -2,6 +2,17 @@ module.exports = function (app) {
 
   var paypal = require('paypal-rest-sdk');
   var Order = require('../models/order');
+  var bunyan = require('bunyan');
+  var log = bunyan.createLogger({ 
+    name: 'dropController',
+    serializers: bunyan.stdSerializers
+  });
+  var paypalConfig = {
+    'host': process.env.paypal_host,
+    'mode': process.env.paypal_mode,
+    'client_id': process.env.paypal_client_id,
+    'client_secret': process.env.paypal_client_secret
+  };
 
   app.get('/drop/:id', function (req, res) {
 
@@ -15,35 +26,19 @@ module.exports = function (app) {
 
   });
 
-  app.get('/pay', function (req, res) {
-    
-    var payer = { payer_id: req.query.PayerId };
-    var paymentId = req.query.PaymentId;
-
-    paypal.payment.execute(paymentId, payer, {}, function (err, response) {
-      if (err)
-        throw err;
-
-      Order.findByPaymentId(paymentId, function (err, order) {
-        if (err)
-          throw err;
-
-        order.paid();
-        res.redirect('/drop/' + order.RowKey)
-      });
-    });
-
-  });
-
   app.post('/drop', function (req, res) {
+    
+    paypal.configure(paypalConfig);
 
-    var paypalConfig = {
-      'host': process.env.paypal_host,
-      'port': '',
-      'mode': process.env.paypal_mode,
-      'client_id': process.env.paypal_client_id,
-      'client_secret': process.env.paypal_client_secret
-    };
+    paypal.generate_token(function (err, token) {
+      if (err) {
+        log.info('err: %s', err);
+        throw err;
+      }
+
+      res.cookie('access_token', token);
+      log.info('token: %s', token);
+    });
 
     var create_payment_json = {
       "intent": "sale",
@@ -72,11 +67,11 @@ module.exports = function (app) {
       }]
     };
 
-    paypal.payment.create(create_payment_json, paypalConfig, function (err, response) {
+    paypal.payment.create(create_payment_json, function (err, response) {
       if (err) {
         throw err;
       } else {
-        console.log("response: " + JSON.stringify(response));
+        log.info("response: %s", JSON.stringify(response));
 
         var approvalLink = response.links.filter(function (link) {
           return link.rel == 'approval_url';
@@ -99,8 +94,33 @@ module.exports = function (app) {
         })
       }
     })
+  });
 
+  app.get('/pay', function (req, res) {
+    
+    var payer = { payer_id: req.query.PayerID };
+    var paymentId = req.query.paymentId;
+
+    log.info('query: ', req.query);
+
+    // paypal.payment.execute(paymentId, payer, paypalConfig, function (err, response) {
+    //   if (err) {
+    //     log.error(err);
+    //     throw err;
+    //   }
+
+      Order.findByPaymentId(paymentId, function (err, order) {
+        if (err)
+          throw err;
+
+        log.info('order', order);
+        order.paid = true;
+        order.update();
+        res.redirect('/drop/' + order.RowKey)
+      });
+    // });
 
   });
+
 
 }
