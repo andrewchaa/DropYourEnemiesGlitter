@@ -53,7 +53,7 @@
 						<div class="col-md-12">
 							<ul class="list-inline wow fadeInUp animated">
 								<li>
-									<button id="btnDrop" type="submit" class="btn btn-custom" value="submit"><i class="fa fa-magic"></i>Drop now</button>
+									<button id="btnDrop" type="submit" class="btn btn-custom" value="submit"><i class="fa fa-magic"></i>Drop now (Paypal)</button>
 								</li>
 							</ul>
 						</div>

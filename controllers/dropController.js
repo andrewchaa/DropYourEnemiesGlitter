@@ -9,7 +9,6 @@ module.exports = function (app) {
   });
   var paypalConfig = {
     'host': process.env.paypal_host,
-    'mode': process.env.paypal_mode,
     'client_id': process.env.paypal_client_id,
     'client_secret': process.env.paypal_client_secret
   };
@@ -93,11 +92,11 @@ module.exports = function (app) {
 
     log.info('query: ', req.query);
 
-    // paypal.payment.execute(paymentId, payer, paypalConfig, function (err, response) {
-    //   if (err) {
-    //     log.error(err);
-    //     throw err;
-    //   }
+    paypal.payment.execute(paymentId, payer, paypalConfig, function (err, response) {
+      if (err) {
+        log.error(err);
+        throw err;
+      }
 
       Order.findByPaymentId(paymentId, function (err, order) {
         if (err)
@@ -110,9 +109,7 @@ module.exports = function (app) {
         });
         
       });
-    // });
+    });
 
   });
-
-
 }
