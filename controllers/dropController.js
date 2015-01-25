@@ -131,9 +131,9 @@ module.exports = function (app) {
     res.render('cancelled');
   };
 
-  app.get('/dropped/:id', getDropped);
   app.post('/drop', postDrop);  
   app.get('/approved', getApproved); 
   app.get('/cancelled', getCancelled);
+  app.get('/dropped/:id', getDropped);
 
 }
