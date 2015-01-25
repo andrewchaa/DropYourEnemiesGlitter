@@ -45,8 +45,8 @@ module.exports = function (app) {
           "payment_method": "paypal"
         },
         "redirect_urls": {
-          "return_url": "http://localhost:3100/pay",
-          "cancel_url": "http://localhost:3100/cancelled"
+          "return_url": process.env.paypal_paid_url,
+          "cancel_url": process.env.paypal_cancelled_url
         },
         "transactions": [{
            "item_list": {
