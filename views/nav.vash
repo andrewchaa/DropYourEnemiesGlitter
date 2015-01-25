@@ -19,7 +19,7 @@
                 <li class="current"><a href="#intro">Intro</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#faq">faq</a></li>
-                <li><a href="#download" onclick="$.scrollTo('#drop', 1000);">Drop now</a></li>
+                <li><a href="#drop" onclick="$.scrollTo('#drop', 1000);">Drop now</a></li>
                 <!-- end navigation items -->
             </ul>   
         </div>

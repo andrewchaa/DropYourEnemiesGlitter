@@ -14,19 +14,19 @@ module.exports = function (app) {
     'client_secret': process.env.paypal_client_secret
   };
 
-  app.get('/drop/:id', function (req, res) {
+  var getDropped = function (req, res) {
 
     var id = req.params.id;
     Order.findByRowKey(id, function (err, order) {
       if (err)
         throw err;
 
-      res.render('drop', order);
+      res.render('dropped', order);
     });
 
-  });
+  };
 
-  app.post('/drop', function (req, res) {
+  var postDrop = function (req, res) {
     
     log.info('paypal configure');
     paypal.configure(paypalConfig);
@@ -52,7 +52,7 @@ module.exports = function (app) {
            "item_list": {
               "items": [{
                   "name": "ship your enemies glitter",
-                  "sku": "ship your enemies glitter",
+                  "sku": "glitter",
                   "price": "4.99",
                   "currency": "GBP",
                   "quantity": 1
@@ -97,9 +97,9 @@ module.exports = function (app) {
 
     })
 
-  });
+  };
 
-  app.get('/pay', function (req, res) {
+  var getApproved = function (req, res) {
     
     var payer = { payer_id: req.query.PayerID };
     var paymentId = req.query.paymentId;
@@ -120,11 +120,20 @@ module.exports = function (app) {
         log.info('order', order);
         order.paid = true;
         order.update(function () {
-          res.redirect('/drop/' + order.RowKey);  
+          res.redirect('/dropped/' + order.RowKey);  
         });
         
       });
     });
+  };
 
-  });
+  var getCancelled = function (req, res) {
+    res.render('cancelled');
+  };
+
+  app.get('/dropped/:id', getDropped);
+  app.post('/drop', postDrop);  
+  app.get('/approved', getApproved); 
+  app.get('/cancelled', getCancelled);
+
 }
