@@ -1,0 +1,42 @@
+@html.extend("layout", function (model) {
+  @html.block("main", function (model) {
+
+    <section class="download" id="orders">
+
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-head wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
+              <h1>Orders</h1>
+              <span class="underline"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th >Email</th><th>Enemy's Name</th><th>Payment</th>
+                </tr>
+              </thead>
+              <tbody>
+                @console.log(model)
+                  <tr>
+                    <td>1</td><td>2</td><td>3</td>
+                  </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+
+  })
+})

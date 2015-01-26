@@ -88,6 +88,36 @@ Order.prototype.update = function (next) {
 
 }
 
+Order.find = function (next) {
+
+  log.info('partitionKey: ', partitionKey);
+  var query = new azure.TableQuery().top(30).where("PartitionKey eq ?", partitionKey);
+
+  tableService.queryEntities(tableName, query, null, function (err, result) {
+    if (err) {
+      next(err);
+    } else {
+
+      log.info('result: ', result.entries);
+
+      next(null, result.entries.map(function (row) {
+        return {
+          PartitionKey: row.PartitionKey._,
+          RowKey: row.RowKey._,
+          email: row.email._,
+          name: row.name._,
+          address: row.address._,
+          postCode: row.postCode._,
+          note: row.note._,
+          paymentId: row.paymentId._,
+          paid: row.paid._
+        }
+      }));
+    }
+  });
+};
+
+
 Order.findByRowKey = function (rowKey, next) {
   tableService.retrieveEntity(tableName, partitionKey, rowKey, function (error, result, response) {
     if (error) {
