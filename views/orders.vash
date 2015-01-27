@@ -15,19 +15,30 @@
         </div>
 
         <div class="row">
-          <div class="col-md-10 col-md-offset-1">
+          <div class="col-md-12">
 
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th >Email</th><th>Enemy's Name</th><th>Payment</th>
+                  <th >Email</th>
+                  <th>Enemy's Name</th>
+                  <th>Address</th>
+                  <th>Post Code</th>
+                  <th>Note</th>
+                  <th>Paid</th>
                 </tr>
               </thead>
               <tbody>
-                @console.log(model)
+                @model.orders.forEach(function (order) {
                   <tr>
-                    <td>1</td><td>2</td><td>3</td>
+                    <td>@order.email</td>
+                    <td>@order.name</td>
+                    <td>@order.address</td>
+                    <td>@order.postCode</td>
+                    <td>@order.note</td>
+                    <td>@order.paid</td>
                   </tr>
+                  })
               </tbody>
             </table>
 

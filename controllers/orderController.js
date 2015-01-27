@@ -9,7 +9,7 @@ module.exports = function (app) {
 
     Order.find(function (err, orders) {
 
-      res.render('orders', orders);
+      res.render('orders', { orders: orders });
     });
     
   });
