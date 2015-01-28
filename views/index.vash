@@ -39,7 +39,7 @@
 						    <div id="valName" class="alert alert-danger">Please provide your enemy's name</div>
 						  </div>
 						  <div class="form-group">
-						    <textarea class="form-control" row="6" id="address" name="address" placeholder="Your friend's address" style="height: 100px"></textarea>
+						    <textarea class="form-control" row="6" id="address" name="address" placeholder="Your enemy's address" style="height: 100px"></textarea>
 						    <div id="valAddress" class="alert alert-danger">Please provide your friend's address</div>
 						    <input class="form-control" id="postcode" name="postCode" placeholder="post code" style="margin-top: 5px;">
 						  </div>
