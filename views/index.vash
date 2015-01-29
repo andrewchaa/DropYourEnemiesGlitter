@@ -30,18 +30,31 @@
 					<div clas="row">
 						<div class="col-md-8 col-md-offset-2">
 						  <div class="form-group">
-						    <input class="form-control" id="email" name="email" placeholder="Your email for any update">
-						    <div id="valEmail" class="alert alert-danger">Please provide your email</div>
+						    <input class="form-control" id="email" name="email" placeholder="Your email for any update" 
+						     value="@model.email">
+						    @if (model.error == 'email') {
+						    	<div id="valEmail" class="alert alert-danger">Oh snap! put your email</div>
+						    }
 						  </div>
 						  <br />
 						  <div class="form-group">
-						    <input class="form-control" id="name" name="name" placeholder="Your enemy's name">
-						    <div id="valName" class="alert alert-danger">Please provide your enemy's name</div>
+						    <input class="form-control" id="name" name="name" placeholder="Your enemy's name" value="@model.name">
+						    @if (model.error == 'name') {
+						    	<div id="valName" class="alert alert-danger">Oh snap! put the name</div>
+						    }
 						  </div>
 						  <div class="form-group">
-						    <textarea class="form-control" row="6" id="address" name="address" placeholder="Your enemy's address" style="height: 100px"></textarea>
-						    <div id="valAddress" class="alert alert-danger">Please provide your friend's address</div>
-						    <input class="form-control" id="postcode" name="postCode" placeholder="post code" style="margin-top: 5px;">
+						    <textarea class="form-control" row="6" id="address" name="address" placeholder="Your enemy's address" style="height: 100px">@model.address</textarea>
+ 						    @if (model.error == 'address') {	
+						    	<div id="valAddress" class="alert alert-danger">Oh snap! put the address</div>
+						    }
+
+						    <input class="form-control" id="postCode" name="postCode" placeholder="post code" 
+						    style="margin-top: 5px;" value="@model.postCode">
+						    @if (model.error == 'postCode') {
+						    	<div id="valPostCode" class="alert alert-danger">Oh snap! put the post code</div>
+						    }
+
 						  </div>
 						  <div class="form-group">
 						    <textarea class="form-control" row="6" id="note" name="note" placeholder="Drop a short note for a personal touch" style="height: 100px"></textarea>

@@ -14,6 +14,16 @@ module.exports = function (app) {
     'client_secret': process.env.paypal_client_secret
   };
 
+  var getIndex = function (req, res) {
+    res.render('index', { 
+      error: req.flash("error"),
+      email: req.flash("email"),
+      name: req.flash("name"),
+      address: req.flash("address"),
+      postCode: req.flash("postCode")
+    });
+  };
+
   var getDropped = function (req, res) {
 
     var id = req.params.id;
@@ -27,7 +37,47 @@ module.exports = function (app) {
   };
 
   var postDrop = function (req, res) {
-    
+
+    log.info('validating form inputs...');
+    var email = req.body.email;
+    var name = req.body.name;
+    var address = req.body.address;
+    var postCode = req.body.postCode;
+
+    req.flash('email', email);
+    req.flash('name', name);
+    req.flash('address', address);
+    req.flash('postCode', postCode);
+
+    if (!email) {
+      log.info("The email is missing.");
+      req.flash("error", "email");
+      res.redirect('/#drop');
+      return;
+    }
+
+    if (!name) {
+      log.info("The name is missing.");
+      req.flash("error", "name");
+      res.redirect('/#drop');
+      return;
+    }
+
+    if (!address) {
+      log.info("The address is missing.");
+      req.flash("error", "address");
+      res.redirect('/#drop');
+      return;
+    }
+
+    if (!postCode) {
+      log.info("The postCode is missing.");
+      req.flash("error", "postCode");
+      res.redirect('/#drop');
+      return;
+    }
+
+
     log.info('paypal configure');
     paypal.configure(paypalConfig);
 
@@ -131,9 +181,11 @@ module.exports = function (app) {
     res.render('cancelled');
   };
 
+  app.get('/', getIndex);
   app.post('/drop', postDrop);  
   app.get('/approved', getApproved); 
   app.get('/cancelled', getCancelled);
   app.get('/dropped/:id', getDropped);
+
 
 }

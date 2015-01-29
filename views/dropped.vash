@@ -9,7 +9,9 @@
             <div class="section-head wow fadeIn animated animated" data-wow-offset="10" data-wow-duration="1.5s" style="visibility: visible; -webkit-animation: fadeIn 1.5s;">
               <h1>You're done now</h1>
               <span class="underline"></span>
-              <p>Sit back and relax! We will bomb that annoying person glitter for you</p>
+              <p>It's time for sweet revenge.</p>
+              <p>We will ship the persion loads of glitter for you, so sit back and relax! </p>
+              <br />
               <p>Please feel free to come back <a href="/">DropYourEnemiesGlitter.com</a> for fun</p>
             </div>
           </div>
@@ -24,12 +26,12 @@
                 <div class="client-quote">
                   <p>
                     The glitter will be shipped to: <br />
+                    @model.name<br />
                     @model.address<br />
                     @model.postCode
                   </p>
                   <p>
-                    We've got your emails: @model.email<br />
-                    and you'll be updated.
+                    We've got your emails: @model.email, so will keep you updated.
                   </p>
 
                 </div>

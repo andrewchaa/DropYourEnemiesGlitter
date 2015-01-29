@@ -128,36 +128,36 @@ $(document).ready(function() {
 	});
 
 	// Custom
-	$('#valEmail').hide();
-	$('#valName').hide();
-	$('#valAddress').hide();
+	// $('#valEmail').hide();
+	// $('#valName').hide();
+	// $('#valAddress').hide();
 
 	$('#btnDrop').click(function () {
-		var isValid = true;
+		// var isValid = true;
 		
-		if ($('#email').val()) {
-			$('#valEmail').hide();
-		} else {
-			$('#valEmail').show();
-			isValid = false;
-		}
+		// if ($('#email').val()) {
+		// 	$('#valEmail').hide();
+		// } else {
+		// 	$('#valEmail').show();
+		// 	isValid = false;
+		// }
 
-		if ($('#name').val()) {
-			$('#valName').hide();
-		} else {
-			$('#valName').show();
-			isValid = false;
-		}
+		// if ($('#name').val()) {
+		// 	$('#valName').hide();
+		// } else {
+		// 	$('#valName').show();
+		// 	isValid = false;
+		// }
 
-		if ($('#address').val()) {
-			$('#valAddress').hide();			
-		} else {
-			$('#valAddress').show();
-			isValid = false;
-		}
+		// if ($('#address').val()) {
+		// 	$('#valAddress').hide();			
+		// } else {
+		// 	$('#valAddress').show();
+		// 	isValid = false;
+		// }
 		
-		if (!isValid)
-			return false;
+		// if (!isValid)
+		// 	return false;
 
 		
 		$('form').submit();
