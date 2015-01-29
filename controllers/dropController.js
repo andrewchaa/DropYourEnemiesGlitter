@@ -66,7 +66,7 @@ module.exports = function (app) {
         }]
       };
 
-      paypal.payment.create(create_payment_json, { Authorization: token}, 
+      paypal.payment.create(create_payment_json, { headers: { Authorization : token } }, 
         function (err, response) {
         if (err) {
           throw err;
