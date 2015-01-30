@@ -2,6 +2,7 @@ module.exports = function (app) {
 
   var paypal = require('paypal-rest-sdk');
   var Order = require('../models/order');
+  var uuid = require('node-uuid');
   var bunyan = require('bunyan');
   var log = bunyan.createLogger({ 
     name: 'dropController',
@@ -15,7 +16,10 @@ module.exports = function (app) {
   };
 
   var getIndex = function (req, res) {
-    log.info('index ctrl. cookies: ', req.cookies['error']);
+
+    var userId = uuid();
+    res.cookie('userId', userId);
+    log.info('A user(' + userId + ') landed on the page');
 
     var error = req.cookies.error || '';
     var email = req.cookies.email || '';
@@ -53,7 +57,9 @@ module.exports = function (app) {
 
   var postDrop = function (req, res) {
 
-    log.info('validating form inputs...');
+    var userId = req.cookies.userId;
+    log.info('validating form inputs for user (' + userId + ')...');
+
     var email = req.body.email;
     var name = req.body.name;
     var address = req.body.address;
@@ -93,13 +99,15 @@ module.exports = function (app) {
     }
 
 
-    log.info('paypal configure');
+    log.info('paypal configure for user (' + userId + ')');
     paypal.configure(paypalConfig);
 
-    log.info('paypal generate token');
+    log.info('paypal generate token for user (' + userId + ')');
     paypal.generate_token(function (err, token) {
-      if (err)
+      if (err) {
+        log.info('error with user (' + userId + '): ', err);
         throw err;
+      }
 
       log.info('access_token: ', token);
       res.cookie('access_token', token);
@@ -131,6 +139,7 @@ module.exports = function (app) {
         }]
       };
 
+      log.info('paypal create payment for user (' + userId + ')');
       paypal.payment.create(create_payment_json, { headers: { Authorization : token } }, 
         function (err, response) {
         if (err) {
@@ -165,19 +174,25 @@ module.exports = function (app) {
   };
 
   var getApproved = function (req, res) {
-    
+    var userId = req.cookies.userId;
+    log.info('user(' + userId + ') approved the payment.');
+
     var payer = { payer_id: req.query.PayerID };
     var paymentId = req.query.paymentId;
 
     log.info('query: ', req.query);
 
+    log.info('paypal configuration again for user(' + userId + ').');
     paypal.configure(paypalConfig);
+
+    log.info('paypal execute payment for user(' + userId + ').');
     paypal.payment.execute(paymentId, payer, function (err, response) {
       if (err) {
         log.error(err);
         throw err;
       }
 
+      log.info('updating payment result for user(' + userId + ').');
       Order.findByPaymentId(paymentId, function (err, order) {
         if (err)
           throw err;
@@ -193,6 +208,8 @@ module.exports = function (app) {
   };
 
   var getCancelled = function (req, res) {
+    var userId = req.cookies.userId;
+    log.info('The user(' + userId + ') canncelled the purchase.');
     res.render('cancelled');
   };
 
