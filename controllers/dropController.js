@@ -15,13 +15,28 @@ module.exports = function (app) {
   };
 
   var getIndex = function (req, res) {
+    log.info('index ctrl. cookies: ', req.cookies['error']);
+
+    var error = req.cookies.error || '';
+    var email = req.cookies.email || '';
+    var name = req.cookies.name || '';
+    var address = req.cookies.address || '';
+    var postCode = req.cookies.postCode || '';
+
+    res.clearCookie("error");
+    res.clearCookie("email");
+    res.clearCookie("name");
+    res.clearCookie("address");
+    res.clearCookie("postCode");
+
     res.render('index', { 
-      error: req.flash("error"),
-      email: req.flash("email"),
-      name: req.flash("name"),
-      address: req.flash("address"),
-      postCode: req.flash("postCode")
+      error: error,
+      email: email || '',
+      name: name || '',
+      address: address || '',
+      postCode: postCode || ''
     });
+
   };
 
   var getDropped = function (req, res) {
@@ -44,35 +59,35 @@ module.exports = function (app) {
     var address = req.body.address;
     var postCode = req.body.postCode;
 
-    req.flash('email', email);
-    req.flash('name', name);
-    req.flash('address', address);
-    req.flash('postCode', postCode);
+    res.cookie('email', email);
+    res.cookie('name', name);
+    res.cookie('address', address);
+    res.cookie('postCode', postCode);
 
     if (!email) {
       log.info("The email is missing.");
-      req.flash("error", "email");
+      res.cookie('error', 'email');
       res.redirect('/#drop');
       return;
     }
 
     if (!name) {
       log.info("The name is missing.");
-      req.flash("error", "name");
+      res.cookie("error", "name");
       res.redirect('/#drop');
       return;
     }
 
     if (!address) {
       log.info("The address is missing.");
-      req.flash("error", "address");
+      res.cookie("error", "address");
       res.redirect('/#drop');
       return;
     }
 
     if (!postCode) {
       log.info("The postCode is missing.");
-      req.flash("error", "postCode");
+      res.cookie("error", "postCode");
       res.redirect('/#drop');
       return;
     }

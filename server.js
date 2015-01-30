@@ -3,8 +3,6 @@ var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var flash = require('connect-flash');
-var session = require('express-session');
 
 var port = process.env.PORT || 3100
 
@@ -22,8 +20,6 @@ app.use(bodyParser.json());
 app.use(cookieParser(cookieSecret));
 
 app.use('/', express.static('./public'));
-app.use(session({ secret: cookieSecret, saveUninitialized: true, resave: true}));
-app.use(flash());
 
 var controllers = require('./controllers');
 controllers(app);
