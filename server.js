@@ -29,5 +29,5 @@ var controllers = require('./controllers');
 controllers(app);
 
 var server = app.listen(port, function () {
-	console.log('listening on port %d', server.address().port);
+	console.log('listening on port %d', port);
 });
