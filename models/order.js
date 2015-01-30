@@ -6,6 +6,7 @@ var storageAccount = process.env.AZURE_STORAGE_ACCOUNT;
 var storageAccessKey = process.env.AZURE_STORAGE_ACCESS_KEY;
 var tableService = azure.createTableService(storageAccount, storageAccessKey);
 var bunyan = require('bunyan');
+var entityHelper = require('../helpers/entityHelper');
 var log = bunyan.createLogger({ 
   name: 'order',
   serializers: bunyan.stdSerializers
@@ -22,6 +23,7 @@ function Order (row) {
     this.note = row.note._;
     this.paymentId = row.paymentId._;
     this.paid = row.paid._;
+    this.date = row.Timestamp._;
 
   } else {
 
@@ -98,19 +100,18 @@ Order.find = function (next) {
       next(err);
     } else {
 
-      log.info('result: ', result.entries);
-
       next(null, result.entries.map(function (row) {
         return {
-          PartitionKey: row.PartitionKey._,
-          RowKey: row.RowKey._,
-          email: row.email._,
-          name: row.name._,
-          address: row.address._,
-          postCode: row.postCode._,
-          note: row.note._,
-          paymentId: row.paymentId._,
-          paid: row.paid._
+          PartitionKey: entityHelper.string(row.PartitionKey),
+          RowKey: entityHelper.string(row.RowKey),
+          email: entityHelper.string(row.email),
+          name: entityHelper.string(row.name),
+          address: entityHelper.string(row.address),
+          postCode: entityHelper.string(row.postCode),
+          note: entityHelper.string(row.note),
+          paymentId: entityHelper.string(row.paymentId),
+          paid: entityHelper.string(row.paid),
+          date: entityHelper.date(row.Timestamp)
         }
       }));
     }

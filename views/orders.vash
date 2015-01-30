@@ -26,6 +26,7 @@
                   <th>Post Code</th>
                   <th>Note</th>
                   <th>Paid</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -37,6 +38,7 @@
                     <td>@order.postCode</td>
                     <td>@order.note</td>
                     <td>@order.paid</td>
+                    <td>@order.date</td>
                   </tr>
                   })
               </tbody>
