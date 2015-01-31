@@ -88,7 +88,6 @@ Order.prototype.update = function (next) {
 
 Order.find = function (next) {
 
-  winston.info('partitionKey: ', partitionKey);
   var query = new azure.TableQuery().top(30).where("PartitionKey eq ?", partitionKey);
 
   tableService.queryEntities(tableName, query, null, function (err, result) {
