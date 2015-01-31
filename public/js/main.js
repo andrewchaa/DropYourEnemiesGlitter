@@ -51,7 +51,7 @@ $(document).ready(function() {
 	});
 
 	$('#wannafun').click(function () {
-		$.scrollTo('#services', 1000);
+		$.scrollTo('#drop', 1000);
 	return false;
 	});
 

@@ -5,12 +5,8 @@ var partitionKey = process.env.azure_partition_key;
 var storageAccount = process.env.AZURE_STORAGE_ACCOUNT;
 var storageAccessKey = process.env.AZURE_STORAGE_ACCESS_KEY;
 var tableService = azure.createTableService(storageAccount, storageAccessKey);
-var bunyan = require('bunyan');
+var winston = require('winston');
 var entityHelper = require('../helpers/entityHelper');
-var log = bunyan.createLogger({ 
-  name: 'order',
-  serializers: bunyan.stdSerializers
-});
 
 function Order (row) {
   if (row) {
@@ -92,7 +88,7 @@ Order.prototype.update = function (next) {
 
 Order.find = function (next) {
 
-  log.info('partitionKey: ', partitionKey);
+  winston.info('partitionKey: ', partitionKey);
   var query = new azure.TableQuery().top(30).where("PartitionKey eq ?", partitionKey);
 
   tableService.queryEntities(tableName, query, null, function (err, result) {
@@ -125,21 +121,21 @@ Order.findByRowKey = function (rowKey, next) {
       next(error);
     }
 
-    log.info('result: ', result);
+    winston.info('result: ', result);
     next(null, new Order(result));
   })
 }
 
 Order.findByPaymentId = function (paymentId, next) {
- log.info('paymentId', paymentId);
+ winston.info('paymentId', paymentId);
 
   var query = new azure.TableQuery().where("paymentId eq ?", paymentId);
   tableService.queryEntities(tableName, query, null, function (err, result, response) {
     if (err)
       next(err);
 
-    log.info('result', result.entries[0]);
-    log.info('response', response)
+    winston.info('result', result.entries[0]);
+    winston.info('response', response)
 
     var order = new Order(result.entries[0]);
     next(null, order);
