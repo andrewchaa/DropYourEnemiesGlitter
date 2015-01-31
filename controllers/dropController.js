@@ -126,14 +126,14 @@ module.exports = function (app) {
               "items": [{
                   "name": "ship your enemies glitter",
                   "sku": "glitter",
-                  "price": "4.99",
+                  "price": "2.99",
                   "currency": "GBP",
                   "quantity": 1
               }]
           },
           "amount": {
             "currency": "GBP",
-            "total": "4.99"
+            "total": "2.99"
           },
           "description": "Ship your enemies glitter for fun!"
         }]
