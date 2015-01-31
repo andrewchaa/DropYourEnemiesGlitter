@@ -18,8 +18,9 @@ module.exports = function (app) {
       sessionId = req.cookies.sessionId;
       winston.info(sessionId + ': Reusing the sessionId');
     } else {
-      res.cookie('sessionId', sessionId);
-      winston.info(sessionId + ': A user landed on the page');
+      var referrer = req.get('Referrer') || '';
+      res.cookie('sessionId', sessionId);      
+      winston.info(sessionId + ': A user landed from ' + referrer);
     }
 
     var error = req.cookies.error || '';
