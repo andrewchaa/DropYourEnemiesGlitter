@@ -50,11 +50,6 @@ $(document).ready(function() {
 	return false;
 	});
 
-	$('#wannafun').click(function () {
-		$.scrollTo('#drop', 1000);
-	return false;
-	});
-
 	$('.btn-custom-border, a.mouse').click(function () {
 		$.scrollTo('.features', 1000);
 	return false;
@@ -132,7 +127,29 @@ $(document).ready(function() {
 	// $('#valName').hide();
 	// $('#valAddress').hide();
 
+	$('#wannafun').click(function () {
+		$.scrollTo('#drop', 1000);
+		$.post('/api/log/drop', function () {});
+	});
+
+	$('#lnkServices').click(function () {
+		$.scrollTo('#drop', 1000);
+		$.post('/api/log/services', function () {});
+	});
+
+	$('#lnkFaq').click(function () {
+		$.scrollTo('#drop', 1000);
+		$.post('/api/log/faq', function () {});
+	});
+
+	$('#lnkDrop').click(function () {
+		$.scrollTo('#drop', 1000);
+		$.post('/api/log/drop', function () {});
+	});
+
+
 	$('#btnDrop').click(function () {
+		$.post('/api/log/submit', function () {});
 		// var isValid = true;
 		
 		// if ($('#email').val()) {

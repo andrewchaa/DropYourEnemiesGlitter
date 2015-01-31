@@ -13,9 +13,14 @@ module.exports = function (app) {
 
   var getIndex = function (req, res) {
 
-    var userId = uuid();
-    res.cookie('userId', userId);
-    winston.info('A user(' + userId + ') landed on the page');
+    var sessionId = uuid();
+    if (req.cookies.sessionId) {
+      sessionId = req.cookies.sessionId;
+      winston.info(sessionId + ': Reusing the sessionId');
+    } else {
+      res.cookie('sessionId', sessionId);
+      winston.info(sessionId + ': A user landed on the page');
+    }
 
     var error = req.cookies.error || '';
     var email = req.cookies.email || '';
@@ -53,8 +58,8 @@ module.exports = function (app) {
 
   var postDrop = function (req, res) {
 
-    var userId = req.cookies.userId;
-    winston.info('validating form inputs for user (' + userId + ')...');
+    var sessionId = req.cookies.sessionId;
+    winston.info(sessionId + ': Validating form inputs...');
 
     var email = req.body.email;
     var name = req.body.name;
@@ -67,41 +72,42 @@ module.exports = function (app) {
     res.cookie('postCode', postCode);
 
     if (!email) {
-      winston.info("The email is missing.");
+      winston.info(sessionId + ": The email is missing.");
       res.cookie('error', 'email');
+      res.cookie('sessionId', sessionId);
       res.redirect('/#drop');
       return;
     }
 
     if (!name) {
-      winston.info("The name is missing.");
+      winston.info(sessionId + ": The name is missing.");
       res.cookie("error", "name");
       res.redirect('/#drop');
       return;
     }
 
     if (!address) {
-      winston.info("The address is missing.");
+      winston.info(sessionId + ": The address is missing.");
       res.cookie("error", "address");
       res.redirect('/#drop');
       return;
     }
 
     if (!postCode) {
-      winston.info("The postCode is missing.");
+      winston.info(sessionId + ": The postCode is missing.");
       res.cookie("error", "postCode");
       res.redirect('/#drop');
       return;
     }
 
 
-    winston.info('paypal configure for user (' + userId + ')');
+    winston.info(sessionId + ': paypal configure');
     paypal.configure(paypalConfig);
 
-    winston.info('paypal generate token for user (' + userId + ')');
+    winston.info(session + ': paypal generate token');
     paypal.generate_token(function (err, token) {
       if (err) {
-        winston.info('error with user (' + userId + '): ', err);
+        winston.info(sessionId + ': error ', err);
         throw err;
       }
 
@@ -135,7 +141,7 @@ module.exports = function (app) {
         }]
       };
 
-      winston.info('paypal create payment for user (' + userId + ')');
+      winston.info('paypal create payment for user (' + sessionId + ')');
       paypal.payment.create(create_payment_json, { headers: { Authorization : token } }, 
         function (err, response) {
         if (err) {
@@ -170,25 +176,25 @@ module.exports = function (app) {
   };
 
   var getApproved = function (req, res) {
-    var userId = req.cookies.userId;
-    winston.info('user(' + userId + ') approved the payment.');
+    var sessionId = req.cookies.sessionId;
+    winston.info('user(' + sessionId + ') approved the payment.');
 
     var payer = { payer_id: req.query.PayerID };
     var paymentId = req.query.paymentId;
 
     winston.info('query: ', req.query);
 
-    winston.info('paypal configuration again for user(' + userId + ').');
+    winston.info('paypal configuration again for user(' + sessionId + ').');
     paypal.configure(paypalConfig);
 
-    winston.info('paypal execute payment for user(' + userId + ').');
+    winston.info('paypal execute payment for user(' + sessionId + ').');
     paypal.payment.execute(paymentId, payer, function (err, response) {
       if (err) {
-        winston.error(err);
+        winston.error(sessionId + ': ', err);
         throw err;
       }
 
-      winston.info('updating payment result for user(' + userId + ').');
+      winston.info(sessionId + ': updating payment result');
       Order.findByPaymentId(paymentId, function (err, order) {
         if (err)
           throw err;
@@ -204,8 +210,8 @@ module.exports = function (app) {
   };
 
   var getCancelled = function (req, res) {
-    var userId = req.cookies.userId;
-    winston.info('The user(' + userId + ') canncelled the purchase.');
+    var sessionId = req.cookies.sessionId;
+    winston.info(sessionId + ': The user canncelled the purchase.');
     res.render('cancelled');
   };
 

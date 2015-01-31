@@ -17,9 +17,9 @@
             <ul class="nav navbar-nav pull-right">
                 <!-- begin navigation items -->
                 <li class="current"><a href="#intro">Intro</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#faq">faq</a></li>
-                <li><a href="#drop" onclick="$.scrollTo('#drop', 1000);">Drop now</a></li>
+                <li><a href="#services" id="lnkServices">Services</a></li>
+                <li><a href="#faq" id="lnkFaq">faq</a></li>
+                <li><a href="#drop" id="lnkDrop">Drop now</a></li>
                 <!-- end navigation items -->
             </ul>   
         </div>

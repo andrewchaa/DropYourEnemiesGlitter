@@ -12,7 +12,7 @@
                     <br />
                     <ul class="list-inline">
                         <li>
-                            <a href="#" class="btn btn-custom" id="wannafun">
+                            <a href="#drop" class="btn btn-custom" id="wannafun">
                                 <i class="fa fa-magic"></i>
                                 Oh yes?
                             </a>
