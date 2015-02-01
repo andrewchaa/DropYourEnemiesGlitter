@@ -105,7 +105,7 @@ module.exports = function (app) {
     winston.info(sessionId + ': paypal configure');
     paypal.configure(paypalConfig);
 
-    winston.info(session + ': paypal generate token');
+    winston.info(sessionId + ': paypal generate token');
     paypal.generate_token(function (err, token) {
       if (err) {
         winston.info(sessionId + ': error ', err);
