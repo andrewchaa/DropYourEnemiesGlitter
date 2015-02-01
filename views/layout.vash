@@ -38,16 +38,8 @@
 <footer class="footer" id="footer">
 	<div class="container">
 		<div class="row wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
-      <div class="col-md-8 col-md-offset-4">
-        <div
-          class="fb-like"
-          data-share="true"
-          data-width="450"
-          data-show-faces="true">
-        </div>
-      </div>
-
 			<div class="col-md-12 text-center">
+        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 				<p><small>Copyright &copy; 2015 Drop your enemies glitter</small></p>
 			</div>
 		</div>
