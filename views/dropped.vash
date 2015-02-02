@@ -10,6 +10,16 @@
               <h1>You're done now</h1>
               <span class="underline"></span>
               <p>Time for sweet revenge.</p>
+
+              <!-- facebook like -->
+              <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div> <br />
+
+              <!-- twitter -->
+              <div style="margin-top: 10px">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="glitterbomb">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+              </div>
+
               <br />
               <p>We will ship the person loads of glitter for you, so sit back and relax! </p>
               <p>Please feel free to come back <a href="/">DropYourEnemiesGlitter.com</a> for more fun</p>
