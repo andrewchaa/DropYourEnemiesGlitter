@@ -3,6 +3,7 @@ var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var cookieFlash = require('./helpers/flash');
 
 var port = process.env.PORT || 3100
 
@@ -18,6 +19,7 @@ app.set('view engine', 'vash');
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser(cookieSecret));
+app.use(cookieFlash());
 
 app.use('/', express.static('./public'));
 

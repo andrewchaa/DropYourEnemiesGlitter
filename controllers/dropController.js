@@ -4,6 +4,7 @@ module.exports = function (app) {
   var Order = require('../models/order');
   var uuid = require('node-uuid');
   var winston = require('winston');
+  var cookieFlash = require('../helpers/flash');
   var paypalConfig = {
     'host': process.env.paypal_host,
     'mode': process.env.paypal_mode,
@@ -23,17 +24,22 @@ module.exports = function (app) {
       winston.info(sessionId + ': A user landed from ' + referrer);
     }
 
-    var error = req.cookies.error || '';
-    var email = req.cookies.email || '';
-    var name = req.cookies.name || '';
-    var address = req.cookies.address || '';
-    var postCode = req.cookies.postCode || '';
+    var error = req.flash('error');
+    var email = req.flash('email');
+    var name = req.flash('name');
+    var address = req.flash('address');
+    var postCode = req.flash('postCode');
+    // var error = req.cookies.error || '';
+    // var email = req.cookies.email || '';
+    // var name = req.cookies.name || '';
+    // var address = req.cookies.address || '';
+    // var postCode = req.cookies.postCode || '';
 
-    res.clearCookie("error");
-    res.clearCookie("email");
-    res.clearCookie("name");
-    res.clearCookie("address");
-    res.clearCookie("postCode");
+    // res.clearCookie("error");
+    // res.clearCookie("email");
+    // res.clearCookie("name");
+    // res.clearCookie("address");
+    // res.clearCookie("postCode");
 
     res.render('index', { 
       error: error,
@@ -67,36 +73,44 @@ module.exports = function (app) {
     var address = req.body.address;
     var postCode = req.body.postCode;
 
-    res.cookie('email', email);
-    res.cookie('name', name);
-    res.cookie('address', address);
-    res.cookie('postCode', postCode);
+    res.flash('email', email);
+    res.flash('name', name);
+    res.flash('address', address);
+    res.flash('postCode', postCode);
+
+    // res.cookie('email', email);
+    // res.cookie('name', name);
+    // res.cookie('address', address);
+    // res.cookie('postCode', postCode);
 
     if (!email) {
       winston.info(sessionId + ": The email is missing.");
-      res.cookie('error', 'email');
-      res.cookie('sessionId', sessionId);
+      // res.cookie('error', 'email');
+      res.flash('error', 'email');
       res.redirect('/#drop');
       return;
     }
 
     if (!name) {
       winston.info(sessionId + ": The name is missing.");
-      res.cookie("error", "name");
+      // res.cookie("error", "name");
+      res.flash("error", "name");
       res.redirect('/#drop');
       return;
     }
 
     if (!address) {
       winston.info(sessionId + ": The address is missing.");
-      res.cookie("error", "address");
+      // res.cookie("error", "address");
+      res.flash("error", "address");
       res.redirect('/#drop');
       return;
     }
 
     if (!postCode) {
       winston.info(sessionId + ": The postCode is missing.");
-      res.cookie("error", "postCode");
+      // res.cookie("error", "postCode");
+      res.flash("error", "postCode");
       res.redirect('/#drop');
       return;
     }

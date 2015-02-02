@@ -33,26 +33,26 @@
 						    <input class="form-control" id="email" name="email" placeholder="Your email for any update" 
 						     value="@model.email">
 						    @if (model.error == 'email') {
-						    	<div id="valEmail" class="alert alert-danger">Oh snap! put your email</div>
+						    	<div id="valEmail" class="alert alert-danger">Oh snap! Your email is missing.</div>
 						    }
 						  </div>
 						  <br />
 						  <div class="form-group">
 						    <input class="form-control" id="name" name="name" placeholder="Your enemy's name" value="@model.name">
 						    @if (model.error == 'name') {
-						    	<div id="valName" class="alert alert-danger">Oh snap! put the name</div>
+						    	<div id="valName" class="alert alert-danger">Oh snap! Where's the name?</div>
 						    }
 						  </div>
 						  <div class="form-group">
 						    <textarea class="form-control" row="6" id="address" name="address" placeholder="Your enemy's address" style="height: 100px">@model.address</textarea>
  						    @if (model.error == 'address') {	
-						    	<div id="valAddress" class="alert alert-danger">Oh snap! put the address</div>
+						    	<div id="valAddress" class="alert alert-danger">Oh snap! The address is missing.</div>
 						    }
 
 						    <input class="form-control" id="postCode" name="postCode" placeholder="post code" 
 						    style="margin-top: 5px;" value="@model.postCode">
 						    @if (model.error == 'postCode') {
-						    	<div id="valPostCode" class="alert alert-danger">Oh snap! put the post code</div>
+						    	<div id="valPostCode" class="alert alert-danger">Oh snap! The post code is missing.</div>
 						    }
 
 						  </div>
