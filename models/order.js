@@ -120,21 +120,21 @@ Order.findByRowKey = function (rowKey, next) {
       next(error);
     }
 
-    winston.info('result: ', result);
+    winston.info('[%s] %s', new Date().toISOString(), 'result: ', result);
     next(null, new Order(result));
   })
 }
 
 Order.findByPaymentId = function (paymentId, next) {
- winston.info('paymentId', paymentId);
+ winston.info('[%s] %s', new Date().toISOString(), 'paymentId', paymentId);
 
   var query = new azure.TableQuery().where("paymentId eq ?", paymentId);
   tableService.queryEntities(tableName, query, null, function (err, result, response) {
     if (err)
       next(err);
 
-    winston.info('result', result.entries[0]);
-    winston.info('response', response)
+    winston.info('[%s] %s', new Date().toISOString(), 'result', result.entries[0]);
+    winston.info('[%s] %s', new Date().toISOString(), 'response', response)
 
     var order = new Order(result.entries[0]);
     next(null, order);

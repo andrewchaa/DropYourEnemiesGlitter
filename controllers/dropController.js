@@ -3,7 +3,6 @@ module.exports = function (app) {
   var paypal = require('paypal-rest-sdk');
   var Order = require('../models/order');
   var uuid = require('node-uuid');
-  var winston = require('winston');
   var cookieFlash = require('../helpers/flash');
   var paypalConfig = {
     'host': process.env.paypal_host,
@@ -11,17 +10,18 @@ module.exports = function (app) {
     'client_id': process.env.paypal_client_id,
     'client_secret': process.env.paypal_client_secret
   };
+  var winston = require('winston');
 
   var getIndex = function (req, res) {
 
     var sessionId = uuid();
     if (req.cookies.sessionId) {
       sessionId = req.cookies.sessionId;
-      winston.info(sessionId + ': Reusing the sessionId');
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'Reusing the sessionId');
     } else {
       var referrer = req.get('Referrer') || '';
       res.cookie('sessionId', sessionId);      
-      winston.info(sessionId + ': A user landed from ' + referrer);
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'A user landed from ' + referrer);
     }
 
     var error = req.flash('error');
@@ -29,17 +29,6 @@ module.exports = function (app) {
     var name = req.flash('name');
     var address = req.flash('address');
     var postCode = req.flash('postCode');
-    // var error = req.cookies.error || '';
-    // var email = req.cookies.email || '';
-    // var name = req.cookies.name || '';
-    // var address = req.cookies.address || '';
-    // var postCode = req.cookies.postCode || '';
-
-    // res.clearCookie("error");
-    // res.clearCookie("email");
-    // res.clearCookie("name");
-    // res.clearCookie("address");
-    // res.clearCookie("postCode");
 
     res.render('index', { 
       error: error,
@@ -66,7 +55,7 @@ module.exports = function (app) {
   var postDrop = function (req, res) {
 
     var sessionId = req.cookies.sessionId;
-    winston.info(sessionId + ': Validating form inputs...');
+    winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'Validating form inputs...');
 
     var email = req.body.email;
     var name = req.body.name;
@@ -78,55 +67,46 @@ module.exports = function (app) {
     res.flash('address', address);
     res.flash('postCode', postCode);
 
-    // res.cookie('email', email);
-    // res.cookie('name', name);
-    // res.cookie('address', address);
-    // res.cookie('postCode', postCode);
-
     if (!email) {
-      winston.info(sessionId + ": The email is missing.");
-      // res.cookie('error', 'email');
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'The email is missing.');
       res.flash('error', 'email');
       res.redirect('/#drop');
       return;
     }
 
     if (!name) {
-      winston.info(sessionId + ": The name is missing.");
-      // res.cookie("error", "name");
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'The name is missing.');
       res.flash("error", "name");
       res.redirect('/#drop');
       return;
     }
 
     if (!address) {
-      winston.info(sessionId + ": The address is missing.");
-      // res.cookie("error", "address");
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'The address is missing.');
       res.flash("error", "address");
       res.redirect('/#drop');
       return;
     }
 
     if (!postCode) {
-      winston.info(sessionId + ": The postCode is missing.");
-      // res.cookie("error", "postCode");
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'The postCode is missing.');
       res.flash("error", "postCode");
       res.redirect('/#drop');
       return;
     }
 
 
-    winston.info(sessionId + ': paypal configure');
+    winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'paypal configure');
     paypal.configure(paypalConfig);
 
-    winston.info(sessionId + ': paypal generate token');
+    winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'paypal generate token');
     paypal.generate_token(function (err, token) {
       if (err) {
-        winston.info(sessionId + ': error ', err);
+        winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'error ', err);
         throw err;
       }
 
-      winston.info('access_token: ', token);
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'access_token: ', token);
       res.cookie('access_token', token);
 
       var create_payment_json = {
@@ -156,13 +136,14 @@ module.exports = function (app) {
         }]
       };
 
-      winston.info('paypal create payment for user (' + sessionId + ')');
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'paypal create payment');
       paypal.payment.create(create_payment_json, { headers: { Authorization : token } }, 
         function (err, response) {
         if (err) {
           throw err;
         } else {
-          winston.info("response: %s", JSON.stringify(response));
+          winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'response: ' + 
+            JSON.stringify(response));
 
           var approvalLink = response.links.filter(function (link) {
             return link.rel == 'approval_url';
@@ -192,29 +173,28 @@ module.exports = function (app) {
 
   var getApproved = function (req, res) {
     var sessionId = req.cookies.sessionId;
-    winston.info('user(' + sessionId + ') approved the payment.');
+    winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'the user approved the payment.');
 
     var payer = { payer_id: req.query.PayerID };
     var paymentId = req.query.paymentId;
 
-    winston.info('query: ', req.query);
-
-    winston.info('paypal configuration again for user(' + sessionId + ').');
+    winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'query: ' + req.query);
+    winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'paypal configuration again');
     paypal.configure(paypalConfig);
 
-    winston.info('paypal execute payment for user(' + sessionId + ').');
+    winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'paypal execute the payment.');
     paypal.payment.execute(paymentId, payer, function (err, response) {
       if (err) {
-        winston.error(sessionId + ': ', err);
+        winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, ': ', err);
         throw err;
       }
 
-      winston.info(sessionId + ': updating payment result');
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'updating payment result');
       Order.findByPaymentId(paymentId, function (err, order) {
         if (err)
           throw err;
 
-        winston.info('order', order);
+        winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'order', order);
         order.paid = true;
         order.update(function () {
           res.redirect('/dropped/' + order.RowKey);  
@@ -226,7 +206,7 @@ module.exports = function (app) {
 
   var getCancelled = function (req, res) {
     var sessionId = req.cookies.sessionId;
-    winston.info(sessionId + ': The user canncelled the purchase.');
+    winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'The user canncelled the purchase.');
     res.render('cancelled');
   };
 
