@@ -1,0 +1,20 @@
+{
+  "name": "DropYourEnemiesGlitter",
+  "version": "0.0.0",
+  "homepage": "https://github.com/andrewchaa/DropYourEnemiesGlitter",
+  "authors": [
+    "andrewchaa <andrew.chaa@huddle.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "parsleyjs": "~2.0.7"
+  }
+}
