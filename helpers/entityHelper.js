@@ -13,7 +13,7 @@ module.exports = {
     }
 
     var keyDate = new Date(key._);
-    return keyDate.getDate() + '/' + keyDate.getMonth() + '/' + keyDate.getYear() + ' ' +
-      keyDate.getHours() + ':' + keyDate.getMinutes();
+
+    return keyDate.toISOString();
   }
 } 

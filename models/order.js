@@ -20,6 +20,7 @@ function Order (row) {
     this.paymentId = row.paymentId._;
     this.paid = row.paid._;
     this.date = row.Timestamp._;
+    this.archived = row.archived._;
 
   } else {
 
@@ -32,9 +33,9 @@ function Order (row) {
     this.note = '';
     this.paymentId = '';
     this.paid = false;
+    this.archived = false;
   }
 }
-
 
 tableService.createTableIfNotExists(tableName, function (error) {
   if (error)
@@ -51,7 +52,8 @@ Order.prototype.add = function (next) {
     postCode: {'_': this.postCode},
     note: {'_': this.note},
     paymentId: {'_': this.paymentId},
-    paid: {'_': false}
+    paid: {'_': false},
+    archived : {'_': false}
   }
 
   tableService.insertEntity(tableName, entity, function (err) {
@@ -73,7 +75,8 @@ Order.prototype.update = function (next) {
     postCode: {'_': this.postCode},
     note: {'_': this.note},
     paymentId: {'_': this.paymentId},
-    paid: {'_': this.paid}
+    paid: {'_': this.paid},
+    archived: {'_': this.archived}
   }
 
   tableService.updateEntity(tableName, entity, function (error, result, response) {
@@ -106,6 +109,7 @@ Order.find = function (next) {
           note: entityHelper.string(row.note),
           paymentId: entityHelper.string(row.paymentId),
           paid: entityHelper.string(row.paid),
+          archived: entityHelper.string(row.archived),
           date: entityHelper.date(row.Timestamp)
         }
       }));
