@@ -70,8 +70,7 @@
 						    	<div id="valAddress" class="alert alert-danger">Oh snap! The address is missing.</div>
 						    }
 
-						    <input class="form-control" id="postCode" name="postCode" placeholder="post code" 
-						    style="margin-top: 5px;" value="@model.postCode">
+						    <input class="form-control" id="postCode" name="postCode" placeholder="post code" style="margin-top: 5px; text-transform:uppercase" value="@model.postCode">
 						    @if (model.error == 'postCode') {
 						    	<div id="valPostCode" class="alert alert-danger">Oh snap! The post code is missing.</div>
 						    }
