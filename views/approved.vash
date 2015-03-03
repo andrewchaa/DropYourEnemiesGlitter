@@ -1,0 +1,36 @@
+@html.extend("layout", function (model) {
+  @html.block("main", function (model) {
+
+    <section class="reviews" id="drop">
+      <div class="container">
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-head wow fadeIn animated animated" data-wow-offset="10" data-wow-duration="1.5s" style="visibility: visible; -webkit-animation: fadeIn 1.5s;">
+              <h1>You're almost done.</h1>
+              <span class="underline"></span>
+              <p>Time for sweet revenge.</p>
+
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+
+              <p>Please complete the process by pressing the button below!</p>
+              <p>&nbsp;<p>
+
+              <form method="POST" action="/approved">
+                <p><button type="submit" class="btn btn-custom" value="submit"><i class="fa fa-magic"></i>Yay! Let's go</button></p>
+                <p><input type="hidden" name="payerId" value="@model.payerId"></p>
+                <p><input type="hidden" name="paymentId" value="@model.paymentId"></p>
+              </form>
+              
+            </div>
+          </div>
+        </div>
+
+
+      </div>  
+    </section>
+
+
+  })
+})

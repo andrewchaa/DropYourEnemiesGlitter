@@ -175,10 +175,21 @@ module.exports = function (app) {
     var sessionId = req.cookies.sessionId;
     winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'the user approved the payment.');
 
-    var payer = { payer_id: req.query.PayerID };
+    var payerId = req.query.PayerID;
     var paymentId = req.query.paymentId;
 
     winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'query: ' + req.query);
+    res.render('approved', { payerId : payerId, paymentId : paymentId });
+
+  };
+
+  var postApproved = function (req, res) {
+
+    var sessionId = req.cookies.sessionId;
+    var sessionId = req.cookies.sessionId;
+    var payer = { payer_id: req.body.payerId };
+    var paymentId = req.body.paymentId;
+
     winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'paypal configuration again');
     paypal.configure(paypalConfig);
 
@@ -213,6 +224,7 @@ module.exports = function (app) {
   app.get('/', getIndex);
   app.post('/drop', postDrop);  
   app.get('/approved', getApproved); 
+  app.post('/approved', postApproved);
   app.get('/cancelled', getCancelled);
   app.get('/dropped/:id', getDropped);
 
