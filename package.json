@@ -19,5 +19,8 @@
     "paypal-rest-sdk": "^1.4.0",
     "vash": "^0.7.12-1",
     "winston": "^0.8.3"
+  },
+  "devDependencies": {
+    "jasmine": "^2.2.1"
   }
 }
