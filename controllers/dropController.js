@@ -43,7 +43,7 @@ module.exports = function (app) {
   var getDropped = function (req, res) {
 
     var id = req.params.id;
-    Order.findByRowKey(id, function (err, order) {
+    Order.findById(id, function (err, order) {
       if (err)
         throw err;
 
@@ -157,7 +157,6 @@ module.exports = function (app) {
           order.note = req.body.note;
           order.paymentId = response.id;
 
-
           order.add(function (err) {
             if (err)
               res.status(400).send(err);
@@ -186,7 +185,6 @@ module.exports = function (app) {
   var postApproved = function (req, res) {
 
     var sessionId = req.cookies.sessionId;
-    var sessionId = req.cookies.sessionId;
     var payer = { payer_id: req.body.payerId };
     var paymentId = req.body.paymentId;
 
@@ -208,7 +206,7 @@ module.exports = function (app) {
         winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'order', order);
         order.paid = true;
         order.update(function () {
-          res.redirect('/dropped/' + order.RowKey);  
+          res.redirect('/dropped/' + order.id);  
         });
         
       });

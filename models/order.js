@@ -1,92 +1,102 @@
-var azure = require('azure-storage');
-var uuid = require('node-uuid');
-var tableName = 'orders';
-var partitionKey = process.env.azure_partition_key;
-var storageAccount = process.env.AZURE_STORAGE_ACCOUNT;
-var storageAccessKey = process.env.AZURE_STORAGE_ACCESS_KEY;
-var tableService = azure.createTableService(storageAccount, storageAccessKey);
 var winston = require('winston');
-var entityHelper = require('../helpers/entityHelper');
 
-function Order (row) {
-  if (row) {
-    this.PartitionKey = row.PartitionKey._;
-    this.RowKey = row.RowKey._;
-    this.email = row.email._;
-    this.name = row.name._;
-    this.address = row.address._;
-    this.postCode = row.postCode._;
-    this.note = row.note._;
-    this.paymentId = row.paymentId._;
-    this.paid = row.paid._;
-    this.date = row.Timestamp._;
-    this.archived = row.archived._;
+var mongoConn = process.env.mongoLabConn;
+var mongoose = require('mongoose');
+mongoose.connect(mongoConn);
 
-  } else {
-
-    this.PartitionKey = partitionKey;
-    this.RowKey = uuid();
-    this.email = '';
-    this.name = '';
-    this.address = '';
-    this.postCode = '';
-    this.note = '';
-    this.paymentId = '';
-    this.paid = false;
-    this.archived = false;
-  }
-}
-
-tableService.createTableIfNotExists(tableName, function (error) {
-  if (error)
-    throw error;
+var Schema = mongoose.Schema;
+var orderSchema = new Schema({
+  id: String,
+  email: String,
+  name: String,
+  address: String,
+  postCode: String,
+  note: String,
+  paymentId: String,
+  paid: Boolean,
+  status: String,
+  date: { type: Date, default: Date.now }
 });
 
-Order.prototype.add = function (next) {
-  var entity = {
-    PartitionKey: {'_': this.PartitionKey},
-    RowKey: {'_': this.RowKey},
-    email: {'_': this.email},
-    name: {'_': this.name},
-    address: {'_': this.address},
-    postCode: {'_': this.postCode},
-    note: {'_': this.note},
-    paymentId: {'_': this.paymentId},
-    paid: {'_': false},
-    archived : {'_': false}
+var OrderEntity = mongoose.model('Order', orderSchema);
+
+function Order (entity) {
+  if (entity) {    
+    this.id = entity._id.toString();
+    this.email = entity.email;
+    this.name = entity.name;
+    this.address = entity.address;
+    this.postCode = entity.postCode;
+    this.note = entity.note;
+    this.paymentId = entity.paymentId;
+    this.paid = entity.paid;
+    this.archived = entity.archived;
+
+    return;
   }
 
-  tableService.insertEntity(tableName, entity, function (err) {
-    if (err)
-      next(err);
+  this.id = '';
+  this.email = '';
+  this.name = '';
+  this.address = '';
+  this.postCode = '';
+  this.note = '';
+  this.paymentId = '';
+  this.paid = false;
+  this.archived = false;
+}
 
-    next(null);
+
+Order.prototype.add = function (next) {
+  var entity = new OrderEntity ({
+    email: this.email,
+    name: this.name,
+    address: this.address,
+    postCode: this.postCode,
+    note: this.note,
+    paymentId: this.paymentId,
+    paid: false,
+    archived : false
   });
+
+  entity.save(function (err, entity) {
+    if (err) {
+      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, err);
+      next(err);
+    }
+
+    next();
+  }); 
+
 }
 
 Order.prototype.update = function (next) {
 
-  var entity = {
-    PartitionKey: {'_': this.PartitionKey},
-    RowKey: {'_': this.RowKey},
-    email: {'_': this.email},
-    name: {'_': this.name},
-    address: {'_': this.address},
-    postCode: {'_': this.postCode},
-    note: {'_': this.note},
-    paymentId: {'_': this.paymentId},
-    paid: {'_': this.paid},
-    archived: {'_': this.archived}
-  }
+  var order = this;
 
-  tableService.updateEntity(tableName, entity, function (error, result, response) {
-    if (error) {
-      next(error);
+  OrderEntity.findById(this.id, function (err, entity) {
+    if (err) {
+      next(err);
     }
 
-    next(null);
-  });
+    entity.email = order.email;
+    entity.name = order.name;
+    entity.address = order.address;
+    entity.postCode = order.postCode;
+    entity.note = order.note;
+    entity.paymentId = order.paymentId;
+    entity.paid = order.paid;
+    entity.archived = order.archived;
+    
+    entity.save(function (err, entity) {
+      if (err) {
+        next(err);
+      }
 
+      next();
+    });    
+
+  });
 }
 
 Order.find = function (next) {
@@ -117,33 +127,33 @@ Order.find = function (next) {
   });
 };
 
+Order.findByPaymentId = function (paymentId, next) {
+  winston.info('[%s] %s', new Date().toISOString(), 'paymentId', paymentId);
 
-Order.findByRowKey = function (rowKey, next) {
-  tableService.retrieveEntity(tableName, partitionKey, rowKey, function (error, result, response) {
-    if (error) {
-      next(error);
+  OrderEntity.findOne({ paymentId: paymentId }, function (err, entity) {
+    if (err) {
+      next(err);
     }
 
-    winston.info('[%s] %s', new Date().toISOString(), 'result: ', result);
-    next(null, new Order(result));
-  })
-}
-
-Order.findByPaymentId = function (paymentId, next) {
- winston.info('[%s] %s', new Date().toISOString(), 'paymentId', paymentId);
-
-  var query = new azure.TableQuery().where("paymentId eq ?", paymentId);
-  tableService.queryEntities(tableName, query, null, function (err, result, response) {
-    if (err)
-      next(err);
-
-    winston.info('[%s] %s', new Date().toISOString(), 'result', result.entries[0]);
-    winston.info('[%s] %s', new Date().toISOString(), 'response', response)
-
-    var order = new Order(result.entries[0]);
+    var order = new Order(entity);
     next(null, order);
   });
 
 }
+
+Order.findById = function (id, next) {
+  winston.info('[%s] %s', new Date().toISOString(), 'id', id);  
+
+  OrderEntity.findById(id, function (err, entity) {
+    if (err){
+      next(err);
+    }
+
+    var order = new Order(entity);
+    next(null, order);
+
+  })
+}
+
 
 module.exports = Order;
