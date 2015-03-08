@@ -32,7 +32,7 @@ function Order (entity) {
     this.paymentId = entity.paymentId;
     this.paid = entity.paid;
     this.env = entity.env;
-    this.archived = entity.archived;
+    this.status = entity.status;
 
     return;
   }
@@ -46,22 +46,28 @@ function Order (entity) {
   this.paymentId = '';
   this.paid = false;
   this.env = 'dev';
-  this.archived = false;
+  this.status = 'received';
 }
 
+Order.prototype.toEntity = function() {
 
-Order.prototype.add = function (next) {
-  var entity = new OrderEntity ({
+  return new OrderEntity ({
+    id: this.id,
     email: this.email,
     name: this.name,
     address: this.address,
     postCode: this.postCode,
     note: this.note,
     paymentId: this.paymentId,
-    paid: false,
-    archived : false
+    paid: this.paid,
+    env: this.env,
+    status: this.status
   });
+}
 
+Order.prototype.add = function (next) {
+
+  var entity = this.toEntity();
   entity.save(function (err, entity) {
     if (err) {
       winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, err);
@@ -89,7 +95,6 @@ Order.prototype.update = function (next) {
     entity.note = order.note;
     entity.paymentId = order.paymentId;
     entity.paid = order.paid;
-    entity.archived = order.archived;
     
     entity.save(function (err, entity) {
       if (err) {

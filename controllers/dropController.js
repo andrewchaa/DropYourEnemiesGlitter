@@ -20,8 +20,11 @@ module.exports = function (app) {
       winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'Reusing the sessionId');
     } else {
       var referrer = req.get('Referrer') || '';
-      res.cookie('sessionId', sessionId);      
-      winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'A user landed from ' + referrer);
+      res.cookie('sessionId', sessionId);
+
+      if (referrer) {
+        winston.info('[%s][%s] %s', new Date().toISOString(), sessionId, 'A user landed from ' + referrer);  
+      }  
     }
 
     var error = req.flash('error');

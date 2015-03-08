@@ -13,7 +13,7 @@ describe("When order is instantiated", function () {
     expect(order.paymentId).toBe('');
     expect(order.paid).toBe(false);
     expect(order.env).toBe('dev');
-    expect(order.archived).toBe(false);
+    expect(order.status).toBe('received');
 
   });
 
@@ -32,7 +32,7 @@ describe("When order is instantiated with entity", function () {
       paymentId: 'paymentId',
       paid: true,
       env: 'live',
-      archived: true
+      status: 'processing'
     }
 
     var order = new Order(entity);
@@ -45,8 +45,27 @@ describe("When order is instantiated with entity", function () {
     expect(order.paymentId).toBe('paymentId');
     expect(order.paid).toBe(true);
     expect(order.env).toBe('live');
-    expect(order.archived).toBe(true);
+    expect(order.status).toBe('processing');    
 
   });
 
 });
+
+describe('When order and entity converion happens', function () {
+  it ('should copy values from the order to an entity', function () {
+    var order = new Order();
+    var entity = order.toEntity();
+
+    expect(entity.id).toBe('');
+    expect(entity.email).toBe('');
+    expect(entity.name).toBe('');
+    expect(entity.address).toBe('');
+    expect(entity.postCode).toBe('');
+    expect(entity.note).toBe('');
+    expect(entity.paymentId).toBe('');
+    expect(entity.paid).toBe(false);
+    expect(entity.env).toBe('dev');
+    expect(entity.status).toBe('received');    
+  });
+
+})

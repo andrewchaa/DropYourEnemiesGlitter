@@ -43,7 +43,7 @@
                     <td>@order.env</td>
                     <td>@model.moment(order.date).format('YYYY-MM-DD HH:mm')</td>
                     <td>
-                      <button class="btn btn-info" style="width: 80px">@order.status</button>
+                      <button id="toNextStatus" class="btn btn-info" style="width: 80px">@order.status</button>
                     </td>
                   </tr>
                   })
