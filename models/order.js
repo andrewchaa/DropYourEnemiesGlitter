@@ -14,6 +14,7 @@ var orderSchema = new Schema({
   note: String,
   paymentId: String,
   paid: Boolean,
+  env: String,
   status: String,
   date: { type: Date, default: Date.now }
 });
@@ -30,6 +31,7 @@ function Order (entity) {
     this.note = entity.note;
     this.paymentId = entity.paymentId;
     this.paid = entity.paid;
+    this.env = entity.env;
     this.archived = entity.archived;
 
     return;
@@ -43,6 +45,7 @@ function Order (entity) {
   this.note = '';
   this.paymentId = '';
   this.paid = false;
+  this.env = 'dev';
   this.archived = false;
 }
 

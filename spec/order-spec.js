@@ -12,6 +12,7 @@ describe("When order is instantiated", function () {
     expect(order.note).toBe('');
     expect(order.paymentId).toBe('');
     expect(order.paid).toBe(false);
+    expect(order.env).toBe('dev');
     expect(order.archived).toBe(false);
 
   });
@@ -30,6 +31,7 @@ describe("When order is instantiated with entity", function () {
       note: 'note',
       paymentId: 'paymentId',
       paid: true,
+      env: 'live',
       archived: true
     }
 
@@ -42,6 +44,7 @@ describe("When order is instantiated with entity", function () {
     expect(order.note).toBe('note');
     expect(order.paymentId).toBe('paymentId');
     expect(order.paid).toBe(true);
+    expect(order.env).toBe('live');
     expect(order.archived).toBe(true);
 
   });
