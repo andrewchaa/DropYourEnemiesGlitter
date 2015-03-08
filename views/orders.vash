@@ -39,7 +39,7 @@
                     </td>
                     <td>@order.note</td>
                     <td>@order.paid</td>
-                    <td>@order.date</td>
+                    <td>@model.moment(order.date).format('YYYY-MM-DD HH:mm')</td>
                     <td>
                       <button class="btn btn-info" style="width: 80px">@order.status</button>
                     </td>

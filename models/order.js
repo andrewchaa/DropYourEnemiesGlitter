@@ -101,30 +101,14 @@ Order.prototype.update = function (next) {
 
 Order.find = function (next) {
 
-  var query = new azure.TableQuery().top(30).where("PartitionKey eq ?", partitionKey);
+  OrderEntity.find(function (err, entities) {
+    if (err)
+      return next(err);
 
-  tableService.queryEntities(tableName, query, null, function (err, result) {
-    if (err) {
-      next(err);
-    } else {
-
-      next(null, result.entries.map(function (row) {
-        return {
-          PartitionKey: entityHelper.string(row.PartitionKey),
-          RowKey: entityHelper.string(row.RowKey),
-          email: entityHelper.string(row.email),
-          name: entityHelper.string(row.name),
-          address: entityHelper.string(row.address),
-          postCode: entityHelper.string(row.postCode),
-          note: entityHelper.string(row.note),
-          paymentId: entityHelper.string(row.paymentId),
-          paid: entityHelper.string(row.paid),
-          archived: entityHelper.string(row.archived),
-          date: entityHelper.date(row.Timestamp)
-        }
-      }));
-    }
+    winston.info('[%s] %s %s', new Date().toISOString(), 'total orders: ', entities.length);
+    return next(null, entities);
   });
+
 };
 
 Order.findByPaymentId = function (paymentId, next) {
