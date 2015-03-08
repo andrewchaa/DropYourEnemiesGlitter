@@ -101,7 +101,7 @@ Order.prototype.update = function (next) {
 
 Order.find = function (next) {
 
-  OrderEntity.find(function (err, entities) {
+  OrderEntity.find({}).sort({ date: 'desc'}).exec(function (err, entities) {
     if (err)
       return next(err);
 
