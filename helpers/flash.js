@@ -16,8 +16,8 @@ module.exports = function flash(options) {
     };
 
     res.flash = function (key, value) {
-      if (key && value) {
-        res.cookie(key, value);        
+      if (key) {
+        res.cookie(key, value, { expires: 0 });
       }
     }
 
