@@ -11,6 +11,7 @@ module.exports = function (app) {
     'client_secret': process.env.paypal_client_secret
   };
   var winston = require('winston');
+  var glitterPrice = 3.99;
 
   var getIndex = function (req, res) {
 
@@ -38,7 +39,8 @@ module.exports = function (app) {
       email: email || '',
       name: name || '',
       address: address || '',
-      postCode: postCode || ''
+      postCode: postCode || '',
+      price: glitterPrice
     });
 
   };
@@ -126,14 +128,14 @@ module.exports = function (app) {
               "items": [{
                   "name": "ship your enemies glitter",
                   "sku": "glitter",
-                  "price": "2.99",
+                  "price": glitterPrice,
                   "currency": "GBP",
                   "quantity": 1
               }]
           },
           "amount": {
             "currency": "GBP",
-            "total": "2.99"
+            "total": glitterPrice
           },
           "description": "Ship your enemies glitter for fun!"
         }]

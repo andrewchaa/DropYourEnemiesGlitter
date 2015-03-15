@@ -16,7 +16,7 @@
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
           </div>
 
-          <h3 style="color: white; line-height: 1.4">Glitter as a Service: want to brighten someone's day off for only £2.99? Let us ship them some stupid glitter that is guaranteed to get on every thing.
+          <h3 style="color: white; line-height: 1.4">Glitter as a Service: want to brighten someone's day off for only £@model.price? Let us ship them some stupid glitter that is guaranteed to get on every thing.
           </h3>
           <br />
           <ul class="list-inline">

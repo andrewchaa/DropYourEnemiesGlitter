@@ -68,7 +68,7 @@
                     </div>
                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                       <div class="panel-body">
-                        It's only £2.99 GBP for anywhere in UK.
+                        It's only @model.price GBP for anywhere in UK.
                       </div>
                     </div>
                   </div>

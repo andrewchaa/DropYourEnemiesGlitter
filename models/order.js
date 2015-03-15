@@ -27,7 +27,7 @@ function Order (entity) {
     this.email = entity.email;
     this.name = entity.name;
     this.address = entity.address;
-    this.postCode = entity.postCode;
+    this.postCode = entity.postCode.toUpperCase();
     this.note = entity.note;
     this.paymentId = entity.paymentId;
     this.paid = entity.paid;

@@ -19,7 +19,7 @@
 					<div class="col-md-12">
 						<div class="section-head wow fadeIn animated" data-wow-offset="10" data-wow-duration="1.5s">
 							<h1>Send now</h1>
-							<p>Ready to glitter up someone's day? Drop some glitter now for only £2.99.</p>
+							<p>Ready to glitter up someone's day? Drop some glitter now for only @model.price.</p>
 							<span class="underline"></span>
 			        <br />
 			        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
