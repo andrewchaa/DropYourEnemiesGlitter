@@ -45,7 +45,7 @@ function Order (entity) {
   this.note = '';
   this.paymentId = '';
   this.paid = false;
-  this.env = 'dev';
+  this.env = process.env.environment;
   this.status = 'received';
 }
 
