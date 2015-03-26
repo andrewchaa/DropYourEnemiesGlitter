@@ -11,7 +11,7 @@ module.exports = function (app) {
     'client_secret': process.env.paypal_client_secret
   };
   var winston = require('winston');
-  var glitterPrice = 3.99;
+  var glitterPrice = 2.99;
 
   var getIndex = function (req, res) {
 
